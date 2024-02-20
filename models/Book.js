@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
   book_id: {
-    type: String,
+    type: String, 
     required: true
   },
   author_name: {
@@ -20,9 +20,10 @@ const bookSchema = new mongoose.Schema({
   days_to_return: {
     type: Number,
     required: true
-  }
+  },
+  book_type:{type: String}
 });
 
 const Book = mongoose.model('Book', bookSchema); 
 
-module.exports = Book; 
+module.exports = Book;

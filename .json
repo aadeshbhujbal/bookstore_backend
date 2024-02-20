@@ -1,0 +1,102 @@
+[{
+    "customer_id": 5,
+    "customer_name": "Timmy Haley",
+    "books": [
+      {
+        "book_id": "7b19b1b9-fb61-4894-a1a4-58e8583ff52e",
+        "author_name": "Robin Aufderhar",
+        "book_name": "apportion amidst blah",
+        "lend_date": "2023-04-27",
+        "days_to_return": 14
+      },
+      {
+        
+        "author_name": "Terence Littel",
+        "book_type": "Fiction"
+       
+      },
+      {
+        "book_id": "48726fce-2c15-4b86-a087-bf299f58ed36",
+        "author_name": "Robin Aufderhar",
+        "book_name": "fiercely yum terribly",
+        "lend_date": "2023-05-21",
+        "days_to_return": 16
+      }
+    ]
+  },
+  {
+    "customer_id": 6,
+    "customer_name": "Dr. Perry Rippin I",
+    "books": [
+      {
+        "book_id": "037fcb48-a696-47f5-bee4-b969231343a0",
+        "author_name": "Rene Waters",
+        "book_name": "yowza ah artistic",
+        "lend_date": "2023-06-04",
+        "days_to_return": 20
+      },
+      {
+        "book_id": "3897db51-52b4-4b5c-81e6-16f94e5a816e",
+        "author_name": "Erin Cole",
+        "book_name": "ew exist hidden",
+        "lend_date": "2023-11-16",
+        "days_to_return": 21
+      },
+      {
+        "book_id": "d4e09a49-3525-4d80-a65b-811a2e5a97c9",
+        "author_name": "Blanche Waelchi",
+        "book_name": "lightly girlfriend malnutrition",
+        "lend_date": "2023-07-17",
+        "days_to_return": 1
+      },
+      {
+        "book_id": "04501887-b3ca-4103-8c4d-0f5aa0385720",
+        "author_name": "Fernando Streich",
+        "book_name": "so coolly hm",
+        "lend_date": "2023-12-05",
+        "days_to_return": 29
+      }
+    ]
+  },
+  {
+    "customer_id": 7,
+    "customer_name": "Lewis Greenfelder",
+    "books": [
+      {
+        "book_id": "ae908ece-d74e-40f5-89a3-a871bbd92938",
+        "author_name": "Orville Stiedemann",
+        "book_name": "failing mmm glamorous",
+        "lend_date": "2024-01-10",
+        "days_to_return": 8
+      },
+      {
+        "book_id": "037fcb48-a696-47f5-bee4-b969231343a0",
+        "author_name": "Rene Waters",
+        "book_name": "yowza ah artistic",
+        "lend_date": "2023-11-17",
+        "days_to_return": 25
+      },
+      {
+        "book_id": "ae908ece-d74e-40f5-89a3-a871bbd92938",
+        "author_name": "Orville Stiedemann",
+        "book_name": "failing mmm glamorous",
+        "lend_date": "2023-10-23",
+        "days_to_return": 30
+      },
+      {
+        "book_id": "48726fce-2c15-4b86-a087-bf299f58ed36",
+        "author_name": "Robin Aufderhar",
+        "book_name": "fiercely yum terribly",
+        "lend_date": "2023-08-17",
+        "days_to_return": 20
+      },
+      {
+        "book_id": "5690ad39-f339-4204-9ab2-dafe59744bc9",
+        "author_name": "Randy Macejkovic",
+        "book_name": "unlined swank archive",
+        "lend_date": "2023-07-25",
+        "days_to_return": 2
+      }
+    ]
+  }
+]
