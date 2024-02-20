@@ -1,17 +1,17 @@
-const Book = require('../models/Book');
-const mongoose = require('mongoose');
+const Book = require("../models/Book");
+const mongoose = require("mongoose");
 // Define an asynchronous function to handle the GET request for all books
 exports.getAllBooks = async (req, res) => {
-    try {
-      // Retrieve all books from the database
-      const books = await Book.find();
-      // Send the retrieved books as a JSON response
-      res.json(books);
-    } catch (err) {
-      // If an error occurs, send a 500 status response with the error message
-      res.status(500).json({ message: err.message });
-    }
-  };
+  try {
+    // Retrieve all books from the database
+    const books = await Book.find();
+    // Send the retrieved books as a JSON response
+    res.json(books);
+  } catch (err) {
+    // If an error occurs, send a 500 status response with the error message
+    res.status(500).json({ message: err.message });
+  }
+};
 
 // Define an asynchronous function to handle the GET request for book availability
 exports.getBookAvailability = async (req, res) => {
@@ -24,11 +24,13 @@ exports.getBookAvailability = async (req, res) => {
 
     // If the book is not found, respond with a 404 status and a message
     if (!book) {
-      res.status(404).json({ message: 'Book not found' });
+      res.status(404).json({ message: "Book not found" });
     } else {
       // Calculate the availability date based on the lend date and days to return
       const availabilityDate = new Date(book.lend_date);
-      availabilityDate.setDate(availabilityDate.getDate() + book.days_to_return);
+      availabilityDate.setDate(
+        availabilityDate.getDate() + book.days_to_return
+      );
 
       // Respond with the availability date
       res.json({ availabilityDate: availabilityDate });
@@ -42,14 +44,14 @@ exports.getBookAvailability = async (req, res) => {
 // Story1
 // exports.calculateRentCharges = async (req, res) => {
 //     try {
-//       let customerBooks = req.body.books; 
+//       let customerBooks = req.body.books;
 //       if (!Array.isArray(customerBooks)) {
 //         customerBooks = [customerBooks];
 //       }
-  
+
 //       let totalCharges = 0;
 //       let customerCharges = [];
-  
+
 //       for (const book of customerBooks) {
 //         const daysRented = book.days_to_return;
 //         const charges = daysRented * 1; // Per day rental charge is Rs 1 for all books
@@ -59,63 +61,152 @@ exports.getBookAvailability = async (req, res) => {
 //           charges: charges
 //         });
 //       }
-  
+
 //       res.json({ customer_id: req.body.customer_id, customer_name: req.body.customer_name, charges: customerCharges, totalCharges: totalCharges });
 //     } catch (err) {
 //       res.status(500).json({ message: err.message });
 //     }
 //   };
 
-
-
 // Story 2
+// exports.calculateRentCharges = async (req, res) => {
+//   try {
+//     const customers = req.body;
+//     console.log("customers:", customers);
+//     let totalCharges = 0;
+
+//     const customerCharges = {};
+
+//     for (const customer of customers) {
+//       const booksToReturn = customer.books;
+//       let customerTotalCharges = 0;
+
+//       for (const book of booksToReturn) {
+//         if (!book.book_type) {
+//           try {
+//             const bookFromDB = await Book.findOne({ book_id: book.book_id });
+//             if (bookFromDB) {
+//               book.book_type = bookFromDB.book_type;
+//             }
+//           } catch (error) {
+//             console.error("Error while fetching book from database:", error);
+//           }
+//         }
+
+//         let chargePerDay = 0;
+//         switch (book.book_type) {
+//           case "Regular":
+//             chargePerDay = 1.5;
+//             break;
+//           case "Fiction":
+//             chargePerDay = 3;
+//             break;
+//           case "Novel":
+//             chargePerDay = 1.5;
+//             break;
+//           default:
+//             chargePerDay = 1.5;
+//         }
+
+//         const daysRented = Math.ceil(
+//           (new Date() - new Date(book.lend_date)) / (1000 * 60 * 60 * 24)
+//         );
+//         const charges = daysRented * chargePerDay;
+
+//         customerTotalCharges += charges;
+//         totalCharges += charges;
+
+//         if (!customerCharges[customer.customer_id]) {
+//           customerCharges[customer.customer_id] = {
+//             customer_name: customer.customer_name,
+//             books: [],
+//           };
+//         }
+
+//         customerCharges[customer.customer_id].books.push({
+//           book_name: book.book_name,
+//           days_to_return: book.days_to_return,
+//           charges: charges,
+//           book_type: book.book_type,
+//         });
+//       }
+
+//       customerCharges[customer.customer_id].totalCharges = customerTotalCharges;
+//     }
+
+//     res.json({ customerCharges, totalCharges });
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// };
+
+// story3
+
+// Define an asynchronous function to calculate rent charges based on input data
 exports.calculateRentCharges = async (req, res) => {
   try {
-    // Get the array of customers with their book data from the request body
+    // Retrieve the array of customers with their book data from the request body
     const customers = req.body;
-    console.log('customers:', customers); // Log the customers array for debugging
-    let totalCharges = 0; // Initialize the total charges to 0
 
-    const customerCharges = {}; // Create an object to store charges for each customer
+    // Initialize the total charges to 0
+    let totalCharges = 0;
+
+    // Create an object to store charges for each customer
+    const customerCharges = {};
 
     // Iterate through each customer
     for (const customer of customers) {
-      const booksToReturn = customer.books; // Get the books to return for the current customer
-      let customerTotalCharges = 0; // Initialize the total charges for the current customer to 0
+      // Get the books to return for the current customer
+      const booksToReturn = customer.books;
+
+      // Initialize the total charges for the current customer to 0
+      let customerTotalCharges = 0;
 
       // Iterate through each book to calculate charges
       for (const book of booksToReturn) {
         // If the book_type is not present in the input data, retrieve it from the database
         if (!book.book_type) {
           try {
-            const bookFromDB = await Book.findOne({ book_id: book.book_id }); // Find the book in the database
+            // Find the book in the database
+            const bookFromDB = await Book.findOne({ book_id: book.book_id });
+            // Assign the book_type from the database to the book if found
             if (bookFromDB) {
-              book.book_type = bookFromDB.book_type; // Assign the book_type from the database to the book
+              book.book_type = bookFromDB.book_type;
             }
           } catch (error) {
-            console.error('Error while fetching book from database:', error); // Log an error if book retrieval fails
+            // Log an error if book retrieval fails
+            console.error("Error while fetching book from database:", error);
           }
         }
 
         // Set the charge per day based on the book_type
         let chargePerDay = 0;
         switch (book.book_type) {
-          case 'Regular':
-            chargePerDay = 1.5;
+          case "Regular":
+            if (book.days_to_return < 2) {
+              chargePerDay = 2; // Minimum charge of Rs 2 for less than 2 days
+            } else if (book.days_to_return === 2) {
+              chargePerDay = 1; // Rs 1 per day for the first 2 days
+            } else {
+              chargePerDay = 1.5; // Rs 1.5 per day after the first 2 days
+            }
             break;
-          case 'Fiction':
-            chargePerDay = 3;
+          case "Fiction":
+            chargePerDay = 3; // Rs 3 per day for fiction books
             break;
-          case 'Novel':
-            chargePerDay = 1.5;
+          case "Novel":
+            if (book.days_to_return < 3) {
+              chargePerDay = 4.5; // Minimum charge of Rs 4.5 for less than 3 days
+            } else {
+              chargePerDay = 1.5; // Rs 1.5 per day for novels
+            }
             break;
           default:
-            chargePerDay = 1.5;
+            chargePerDay = 1.5; // Default charge of Rs 1.5 per day
         }
 
-        // Calculate the days rented and charges for the current book
-        const daysRented = Math.ceil((new Date() - new Date(book.lend_date)) / (1000 * 60 * 60 * 24));
-        const charges = daysRented * chargePerDay;
+        // Calculate the charges for the current book based on the charge per day
+        const charges = book.days_to_return * chargePerDay;
 
         // Add charges for the current book to the customer's total charges and the overall total charges
         customerTotalCharges += charges;
@@ -125,7 +216,7 @@ exports.calculateRentCharges = async (req, res) => {
         if (!customerCharges[customer.customer_id]) {
           customerCharges[customer.customer_id] = {
             customer_name: customer.customer_name,
-            books: []
+            books: [],
           };
         }
 
@@ -134,7 +225,7 @@ exports.calculateRentCharges = async (req, res) => {
           book_name: book.book_name,
           days_to_return: book.days_to_return,
           charges: charges,
-          book_type: book.book_type
+          book_type: book.book_type,
         });
       }
 
@@ -145,6 +236,7 @@ exports.calculateRentCharges = async (req, res) => {
     // Send the response with the calculated customer charges and total charges
     res.json({ customerCharges, totalCharges });
   } catch (err) {
-    res.status(500).json({ message: err.message }); // Handle any errors and send an error response
+    // Handle any errors and send an error response
+    res.status(500).json({ message: err.message });
   }
 };
