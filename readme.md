@@ -17,7 +17,10 @@ Story 3: The store decided to alter the calculations for Regular books and novel
 
 
 
+## Documentation
 
+[Documentation]
+Each story have a different branch and commits 
 
 ## Installation
 
