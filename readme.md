@@ -17,7 +17,10 @@ Story 3: The store decided to alter the calculations for Regular books and novel
 
 
 
+## Documentation
 
+[Documentation]
+Each story have a different branch and commits 
 
 ## Installation
 
@@ -72,6 +75,22 @@ There are 2 Scripts in this file
 
 
 
-## Documentation
 
-[Documentation](https://linktodocumentation)
+
+
+## Screenshots
+Story 1 Test Results
+![Test Result 1](https://raw.githubusercontent.com/aadeshbhujbal/bookstore_backend/main/response_story1.png)
+
+Story 2 Test Results 
+![Test Result 2](https://raw.githubusercontent.com/aadeshbhujbal/bookstore_backend/main/response_story2.png)
+
+
+![Test Result 2](https://raw.githubusercontent.com/aadeshbhujbal/bookstore_backend/main/response_story2.png)
+
+![Test Result 2](https://raw.githubusercontent.com/aadeshbhujbal/bookstore_backend/main/response_story_2_1.png)
+
+Story 3 Test Results 
+![Test Result 3](https://raw.githubusercontent.com/aadeshbhujbal/bookstore_backend/main/response_story_3.png)
+
+![Test Result 3](https://raw.githubusercontent.com/aadeshbhujbal/bookstore_backend/main/response_story_3_1.png)
